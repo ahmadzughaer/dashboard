@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'editcss.css' %}">
+</head>
+<body>
+    <footer>
+        <h1>Edit my account </h1>
+        <a href="/users/{{user.id}}">back</a>
+        <a href="/logout"><button>log out</button></a>
+    </footer>
+    <hr>
+    <section>
+        <form action="/update" method="POST">{% csrf_token %}
+            <table>
+                <tr><td>First Name</td><td><input type="text" name="fn" value="{{user.first_name}} "></td> </tr>
+                <tr><td>Last Name</td><td><input type="text" name="ln" value="{{user.last_name}} "></td> </tr>
+                <tr><td>Email</td><td><input type="text" name="em" value="{{user.email}}" ></td></tr>
+                <tr><td></td><td><input type="submit" value="Update"></td></tr>
+            </table>
+        </form>
+        {% if error %}
+        <ul class="messages">
+        {% for err in error %}
+            <li>{{ err }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    </section>
+</body>
+</html>
